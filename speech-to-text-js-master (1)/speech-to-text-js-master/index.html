@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Voice Note App</title>
+    <meta name="description" content="A Voice Note App that allows you to take voice and/or text notes and play them back.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Bootstrap CDN CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-0Mou2qXGeXK7k/Ue/a1hspEVcEP2zCpoQZw8/MPeUgISww+VmDJcy2ri9tX0a6iy" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container-fluid align-center">
+        <img src="assets/img/code-mic-150.png" alt="Voice Note App Logo">
+        <h1>Voice Note App</h1>
+        <p class="page-description">This app allows you to take voice and/or text notes and play them back.</p>
+        <hr>
+        <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
+        <div class="app">
+            <div class="row">
+                <div class="col-md-6 align-center">
+                    <h3>Add New Voice Note</h3>
+                    <div class="input-single">
+                        <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea>
+                    </div>
+                    <button id="start-record-btn" class="btn-success" title="Start Recording">Start Recognition</button>
+                    <button id="pause-record-btn" class="btn-warning" title="Pause Recording">Pause Recognition</button>
+                    <button id="save-note-btn" class="btn-info" title="Save Note">Save Note</button>
+                    <p id="recording-instructions">Press the
+                        <strong>Start Recognition</strong> button and allow access.</p>
+                </div>
+                <div class="col-md-6 align-center">
+                    <h3>My Voice Notes</h3>
+                    <ul id="notes">
+                        <li>
+                            <p class="no-notes">You don't have any notes.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /app -->
+    </div>
+
+    <div id="footer">
+        <div class="clearfix1">
+            <div class="container">
+                <div class="row">
+
+                    <div class="center">
+                        <p>Speech to Text Voice Note App 2018</p>
+                    </div>
+
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+    </div>
+    <!-- /footer -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
+     <script type="text/javascript">
+        // var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        // var recognition = new SpeechRecognition();
+
+        // function runSpeechRecognition(el, recognition = new SpeechRecognition()) {
+
+        //     var parentDiv = el.closest('.answer-speaking');
+        //     var action = parentDiv.querySelector('.action');
+        //     var output = parentDiv.querySelector('.output');
+        //     var wave = parentDiv.querySelector('.wave-record');
+        //     var answer_true = el.getAttribute('data-dap_an');
+        //     console.log(answer_true);
+
+        //     // This runs when the speech recognition service starts
+        //     recognition.onstart = function() {
+        //         action.innerHTML = "<p>listening, please speak...</p>";
+        //         wave.classList.add('active');
+        //         el.classList.remove('active');
+        //     };
+
+        //     recognition.onspeechend = function() {
+        //         action.innerHTML = "<p>stopped listening, hope you are done...</p>";
+        //         recognition.stop();
+        //         wave.classList.remove('active');
+        //         el.classList.add('active');
+        //     }
+
+        //     // This runs when the speech recognition service returns result
+        //     recognition.onresult = function(event) {
+        //         var transcript = event.results[0][0].transcript;
+        //         var confidence = event.results[0][0].confidence;
+        //         output.innerHTML = "<b>Text:</b> " + transcript ;
+        //         console.log(transcript.toLowerCase());
+        //         var similarityPercentage = 0;
+        //         similarityPercentage = calculateSimilarityPercentage(transcript.toLowerCase(),answer_true);
+
+        //         if(similarityPercentage < 60){
+        //             $('.show_result').css('opacity',1);
+        //             $('.show_result-info.success').removeClass('active');
+        //             $('.show_result-info.error').addClass('active');
+        //             $('.show_result-info.error span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //         }else {
+        //             $('.show_result').css('opacity',1);
+        //             $('.show_result-info.error').removeClass('active');
+        //             $('.show_result-info.success').addClass('active');
+        //             $('.show_result-info.success span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //             $('.nextBtn').css({ 'pointer-events': 'all', 'background': '#ed4f4f' });
+        //         }
+
+
+        //         output.classList.remove("hide");
+        //     };
+
+        //      // start recognition
+        //      recognition.start();
+        // }
+
+        // function stopSpeech(el, recognition = new SpeechRecognition()){
+        //     // if (navigator.vendor.indexOf('Apple') > -1)
+        //     // {
+        //     //     try{ recognition.start(); }
+        //     //     catch(err) { }
+        //     // }
+        //     var parentDiv = el.closest('.answer-speaking');
+        //     var action = parentDiv.querySelector('.action');
+        //     var output = parentDiv.querySelector('.output');
+        //     var wave = parentDiv.querySelector('.wave-record');
+        //     var btnspeech = parentDiv.querySelector('.btn-record');
+        //     var answer_true = btnspeech.getAttribute('data-dap_an');
+        //     console.log(123);
+
+        //     try{ recognition.start(); }
+        //     catch(err) { }
+        //     wave.classList.remove('active');
+        //     btnspeech.classList.add('active');
+
+        //     recognition.onresult = function(event) {
+        //         var transcript = event.results[0][0].transcript;
+        //         var confidence = event.results[0][0].confidence;
+        //         output.innerHTML = "<b>Text:</b> " + transcript ;
+        //         console.log(1233);
+        //         // var similarityPercentage = 0;
+        //         // similarityPercentage = calculateSimilarityPercentage(transcript.toLowerCase(),answer_true);
+
+        //         // if(similarityPercentage < 60){
+        //         //     $('.show_result').css('opacity',1);
+        //         //     $('.show_result-info.success').removeClass('active');
+        //         //     $('.show_result-info.error').addClass('active');
+        //         //     $('.show_result-info.error span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //         // }else {
+        //         //     $('.show_result').css('opacity',1);
+        //         //     $('.show_result-info.error').removeClass('active');
+        //         //     $('.show_result-info.success').addClass('active');
+        //         //     $('.show_result-info.success span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //         //     $('.nextBtn').css({ 'pointer-events': 'all', 'background': '#ed4f4f' });
+        //         // }
+
+
+        //         // output.classList.remove("hide");
+        //     };
+        //     recognition.stop();
+        // }
+
+        // /* JS comes here */
+        // /*
+        // function runSpeechRecognition(el) {
+
+        //     var parentDiv = el.closest('.answer-speaking');
+        //     var action = parentDiv.querySelector('.action');
+        //     var output = parentDiv.querySelector('.output');
+        //     var wave = parentDiv.querySelector('.wave-record');
+        //     var answer_true = el.getAttribute('data-dap_an');
+        //     console.log(answer_true);
+        //     // new speech recognition object
+        //     // var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        //     // var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        //     // var recognition = new SpeechRecognition();
+        //     // var recognition = new webkitSpeechRecognition();
+        //     var recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+
+        //     // This runs when the speech recognition service starts
+        //     recognition.onstart = function() {
+        //         action.innerHTML = "<p>listening, please speak...</p>";
+        //         wave.classList.add('active');
+        //         el.classList.remove('active');
+        //     };
+
+        //     recognition.onspeechend = function() {
+        //         action.innerHTML = "<p>stopped listening, hope you are done...</p>";
+        //         recognition.stop();
+        //         wave.classList.remove('active');
+        //         el.classList.add('active');
+        //     }
+
+        //     // This runs when the speech recognition service returns result
+        //     recognition.onresult = function(event) {
+        //         var transcript = event.results[0][0].transcript;
+        //         var confidence = event.results[0][0].confidence;
+        //         output.innerHTML = "<b>Text:</b> " + transcript ;
+        //         console.log(transcript.toLowerCase());
+        //         var similarityPercentage = 0;
+        //         similarityPercentage = calculateSimilarityPercentage(transcript.toLowerCase(),answer_true);
+
+        //         if(similarityPercentage < 60){
+        //             $('.show_result').css('opacity',1);
+        //             $('.show_result-info.success').removeClass('active');
+        //             $('.show_result-info.error').addClass('active');
+        //             $('.show_result-info.error span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //         }else {
+        //             $('.show_result').css('opacity',1);
+        //             $('.show_result-info.error').removeClass('active');
+        //             $('.show_result-info.success').addClass('active');
+        //             $('.show_result-info.success span').text('Bạn đã nói đúng '+similarityPercentage.toFixed(1)+'% câu, cố gắng lên!');
+        //             $('.nextBtn').css({ 'pointer-events': 'all', 'background': '#ed4f4f' });
+        //         }
+
+
+        //         output.classList.remove("hide");
+        //     };
+
+        //      // start recognition
+        //      recognition.start();
+        // }
+        // */
+        // function calculateSimilarityPercentage(a, b) {
+        //     const longer = a.length > b.length ? a : b;
+        //     const shorter = a.length > b.length ? b : a;
+        //     const longerLength = longer.length;
+        //     if (longerLength === 0) {
+        //         return 100; /* 100% tương đồng nếu cả hai chuỗi đều rỗng */
+        //     }
+        //     return ((longerLength - calculateLevenshteinDistance(longer, shorter)) / parseFloat(longerLength)) * 100;
+        // }
+
+        // function calculateLevenshteinDistance(a, b) {
+        //     let matrix = [];
+        //     // Initialize matrix
+        //     for (let i = 0; i <= b.length; i++) {
+        //         matrix[i] = [i];
+        //     }
+        //     for (let j = 0; j <= a.length; j++) {
+        //         matrix[0][j] = j;
+        //     }
+        //     // Calculate Levenshtein distance
+        //     for (let i = 1; i <= b.length; i++) {
+        //         for (let j = 1; j <= a.length; j++) {
+        //             if (b.charAt(i - 1) == a.charAt(j - 1)) {
+        //                 matrix[i][j] = matrix[i - 1][j - 1];
+        //             } else {
+        //                 matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+        //             }
+        //         }
+        //     }
+        //     return matrix[b.length][a.length];
+        // }
+    </script>
+</body>
+
+</html>
